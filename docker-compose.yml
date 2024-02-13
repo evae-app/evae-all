@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  # Oracle service (label used to access the service container)
+  oracle:
+
+    # Docker Hub image (feel free to change the tag "latest" to any other available one)
+    image: gvenzl/oracle-xe:latest
+
+    # Forward Oracle port
+    ports:
+      - "1521:1521"
+
+    # Healthcheck configuration
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+    # Environment variables for Oracle
+    environment:
+      - ORACLE_RANDOM_PASSWORD=false
+      - ORACLE_SYS_PASSWORD=sys
+      - ORACLE_SYSTEM_PASSWORD=sys
+
